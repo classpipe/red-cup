@@ -93,10 +93,23 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Document View Sheet
+  function restartDocumentViewMarquee() {
+    // Ensure the marquee inside the document view always starts animating
+    var marqueeTrack = document.querySelector('.document-view-status .marquee__track');
+    if (!marqueeTrack) return;
+
+    // Reset animation so that it reliably starts whenever we open the sheet
+    marqueeTrack.style.animation = 'none';
+    // Force reflow to apply the change
+    void marqueeTrack.offsetWidth;
+    marqueeTrack.style.animation = '';
+  }
+
   function openDocumentView() {
     if (documentViewOverlay) {
       documentViewOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
+      restartDocumentViewMarquee();
     }
   }
   
