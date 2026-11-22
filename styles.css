@@ -11,7 +11,8 @@
   box-sizing:border-box;
 }
 html,body{
-  height:100%;
+  height: var(--app-height, 100dvh);
+  min-height: var(--app-height, 100dvh);
 }
 body{
   margin:0;
@@ -22,7 +23,7 @@ body{
 
 /* Simulated phone canvas to match mobile look even on desktop */
 .phone{
-  min-height:100dvh;
+  min-height: var(--app-height, 100dvh);
   max-width:430px;
   margin:0 auto;
   padding:72px 18px 24px;
@@ -531,10 +532,11 @@ h1 {
 
 /* Bottom Navigation */
 .bottom-nav {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 100%;
   max-width: 430px;
   background: #fff;

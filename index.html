@@ -6,6 +6,77 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
+    <script>
+      (function () {
+        function standalone() {
+          return (
+            window.navigator.standalone === true ||
+            (window.matchMedia &&
+              window.matchMedia("(display-mode: standalone)").matches)
+          );
+        }
+
+        function syncAppHeight() {
+          var vv = window.visualViewport;
+          var height = vv && vv.height ? vv.height : window.innerHeight;
+          if (!height) return;
+          if (standalone() && window.screen && window.screen.height > height) {
+            height = window.screen.height;
+          }
+          document.documentElement.style.setProperty(
+            "--app-height",
+            height + "px"
+          );
+        }
+
+        function kickStandaloneViewport() {
+          if (!standalone()) return;
+          var root = document.documentElement;
+          var prevMin = root.style.minHeight;
+          var prevHeight = root.style.height;
+          root.style.height = "auto";
+          root.style.minHeight = "calc(100% + 2px)";
+          window.scrollTo(0, 1);
+          window.scrollTo(0, 0);
+          root.style.minHeight = prevMin;
+          root.style.height = prevHeight;
+          syncAppHeight();
+        }
+
+        if (standalone()) {
+          var viewport = document.querySelector('meta[name="viewport"]');
+          if (viewport && viewport.content.indexOf("height=device-height") === -1) {
+            viewport.setAttribute(
+              "content",
+              viewport.content + ", height=device-height"
+            );
+          }
+        }
+
+        syncAppHeight();
+        requestAnimationFrame(function () {
+          kickStandaloneViewport();
+          requestAnimationFrame(kickStandaloneViewport);
+        });
+        window.addEventListener("resize", syncAppHeight);
+        window.addEventListener("orientationchange", function () {
+          setTimeout(syncAppHeight, 50);
+          setTimeout(syncAppHeight, 300);
+        });
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", syncAppHeight);
+        }
+        window.addEventListener("load", function () {
+          kickStandaloneViewport();
+          setTimeout(kickStandaloneViewport, 50);
+          setTimeout(syncAppHeight, 250);
+        });
+        window.addEventListener("pageshow", function () {
+          syncAppHeight();
+          kickStandaloneViewport();
+        });
+      })();
+    </script>
     <meta name="theme-color" content="#e8e2d2" />
     <title>red cup</title>
     <link rel="manifest" href="manifest.webmanifest?v=2" />
