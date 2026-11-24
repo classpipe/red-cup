@@ -1,12 +1,12 @@
 {
-  "name": "Резерв+",
-  "short_name": "Резерв+",
-  "description": "Демо PWA: мобільна сторінка у стилі «Резерв+».",
+  "name": "e cnbks",
+  "short_name": "e cnbks",
+  "description": "Демо PWA: мобільна сторінка у стилі.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "background_color": "#e8e2d2",
-  "theme_color": "#e8e2d2",
+  "background_color": "#141414",
+  "theme_color": "#141414",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
