@@ -1,5 +1,5 @@
 // Offline-first service worker with comprehensive caching
-const CACHE = 'reserv-plus-v3';
+const CACHE = 'reserv-plus-v4';
 const ASSETS = [
   './',
   './index.html',

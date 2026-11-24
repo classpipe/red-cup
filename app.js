@@ -151,3 +151,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Splash screen: show for 3 seconds, then reveal the main screen
+(function () {
+  var splash = document.getElementById('splash');
+  if (!splash) return;
+  document.body.style.overflow = 'hidden';
+  setTimeout(function () {
+    splash.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(function () { splash.remove(); }, 450);
+  }, 3000);
+})();
